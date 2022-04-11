@@ -16,36 +16,73 @@
 
     .innerContainer {
       margin-top: 7px;
+      display: grid;
+      padding: 10px 10px 0 10px;
+      grid-template-columns: 1fr 1fr 1fr;
+      justify-items: center;
+      grid-gap: 20px 0px;
 
-      .img {
+      .divImg {
+        //background-color: black;
         width: 12vw;
         height: 20vh;
-        margin: 2vh 0 0 1vw;
-      }
-    }
+        position: relative;
+        //margin: 2vh 0 0 1vw;
+        background: url(/logo/eye.svg) #fff no-repeat center;
 
-    .links {
-      display: flex;
-      //justify-content: space-around;
-      height: 13vh;
-      align-items: center;
+        border-radius: 3%;
 
-      .containerSvg {
-        display: flex;
-        width: 11.5vw;
-        height: 6vh;
-        border: 1px solid rgb(0 0 0 / 6%);
-        justify-content: space-around;
-        margin: 12px;
+        .svgeye {
+          position: absolute;
+          top: 50%;
+          width: 60px;
+          left: 50%;
+          //opacity: 0;
+        }
 
-        .svg {
-          width: 3vw;
+        .img {
+          width: 12vw;
+          height: 20vh;
+          //margin: 2vh 0 0 1vw;
+          border-radius: 3%;
+          transition: 0.5s;
+
+          // &:hover {
+          //   cursor: pointer;
+          //   opacity: 0.2;
+          // }
+        }
+        &:hover {
+        background-color: rgba(0, 0, 0, 0.815);
+
+          cursor: pointer;
+          // .svgeye {
+          //   opacity: 1;
+          // }
+          .img {
+            opacity: 0.2;
+          }
         }
       }
+    }
+  }
 
-      // display: flex;
-      // flex-direction: row;
-      // justify-content: space-evenly;
+  .links {
+    display: flex;
+    height: 13vh;
+    align-items: center;
+
+    .containerSvg {
+      display: flex;
+      width: 11.5vw;
+      height: 6vh;
+      border: 1px solid rgb(0 0 0 / 6%);
+      justify-content: space-around;
+      margin: 12px;
+
+      .svg {
+        width: 3vw;
+      }
     }
   }
 }

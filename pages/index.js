@@ -1,24 +1,30 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addImage } from "./store/actionsCreator/actions";
-import { deleteImages } from "./store/actionsCreator/actions";
-
-import styles from "../styles/Home.module.scss";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useDispatch, useSelector } from 'react-redux';
+import { addImage } from './store/actionsCreator/actions';
+import { deleteImages } from './store/actionsCreator/actions';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Snackbar from '@mui/material/Snackbar';
+import styles from '../styles/Home.module.scss';
 
 export default function Home() {
   const dispatch = useDispatch();
-  const store = useSelector((store) => store);
+  //const store = useSelector((store) => store);
   const [drag, setDrag] = useState(false);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [testImages, setTestImages] = useState();
-    const [newImage, setNewImage] = useState({
+  const [open, setOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState('');
+  const [newImage, setNewImage] = useState({
     id: '',
-    title: "",
-    description: "",
-    image: "",
+    title: '',
+    description: '',
+    image: '',
   });
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const uploadImage = async (e) => {
     const file = e.dataTransfer.files[0];
@@ -52,15 +58,15 @@ export default function Home() {
   useEffect(() => {
     if (newImage.title && newImage.description) {
       dispatch(addImage(newImage));
-      const tmp = JSON.parse(localStorage.getItem("photo")) || [];
+      const tmp = JSON.parse(localStorage.getItem('photo')) || [];
       tmp.push(newImage);
-      localStorage.setItem("photo", JSON.stringify(tmp));
+      localStorage.setItem('photo', JSON.stringify(tmp));
       setNewImage({
-        title: "",
-        description: "",
-        image: "",
+        title: '',
+        description: '',
+        image: '',
       });
-      router.push("/gallery");
+      router.push('/gallery');
     }
   }, [newImage]);
 
@@ -75,6 +81,10 @@ export default function Home() {
   };
 
   const onDropHandler = (e) => {
+    if (!newImage.title && !newImage.description) {
+      setSnackbar('Complete  all fields');
+      setOpen(true);
+    }
     e.preventDefault();
     uploadImage(e);
     setDrag(false);
@@ -83,11 +93,20 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.form}>
+        <Snackbar
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+          message={snackbar}
+        />
         <div>
           <input
             className={styles.title}
-            name="title"
-            placeholder="Photo Gallery"
+            name='title'
+            placeholder='Photo Gallery'
             onChange={(e) => {
               setTitle(e.target.value);
             }}
@@ -95,10 +114,10 @@ export default function Home() {
         </div>
         <div>
           <textarea
-            maxLength="144"
+            maxLength='144'
             className={styles.description}
-            name="description"
-            placeholder="A selection of the latest photos from our restaurant and some of our favorite dishes"
+            name='description'
+            placeholder='A selection of the latest photos from our restaurant and some of our favorite dishes'
             onChange={(e) => {
               setDescription(e.target.value);
             }}
@@ -107,7 +126,7 @@ export default function Home() {
         <div className={styles.photo}>
           {drag ? (
             <div
-              name="photo"
+              name='photo'
               className={styles.dropArea}
               onDragStart={(e) => draStartHandler(e)}
               onDragLeave={(e) => draLeaveHandler(e)}
@@ -129,7 +148,12 @@ export default function Home() {
         </div>
         <div
           className={styles.delete}
-          onClick={() => { dispatch(deleteImages()), localStorage.clear()}}
+          onClick={() => {
+            dispatch(deleteImages()),
+              localStorage.clear(),
+              setSnackbar('Gallery successfully cleared'),
+              setOpen(true);
+          }}
         >
           <p>Delete ALL photos</p>
         </div>

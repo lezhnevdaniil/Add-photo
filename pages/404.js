@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Problems() {
   const router = useRouter();
   useEffect(() => {
-      setTimeout(() => {
-        router.push('/');
-      }, 1000);
+    setTimeout(() => {
+      router.push('/');
+    }, 1000);
   }, []);
   return (
     <div>

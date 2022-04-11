@@ -46,6 +46,8 @@
 
 .modalContent_active {
   transform: scale(1);
+  width: 40vw;
+  height: 10vh;
 }
 
 .information {
@@ -61,10 +63,15 @@
   .text {
     word-break: break-all;
     font-size: 24px;
+    padding: 0 10px;
     font-family: 'Roboto';
-    p{
-        font-family: 'Roboto';
-        margin: 2px;
+    p {
+      font-family: 'Roboto';
+      margin: 2px;
+      color: rgb(24, 23, 23);
+    }
+    p + p {
+      color: rgb(109, 109, 109);
     }
   }
 

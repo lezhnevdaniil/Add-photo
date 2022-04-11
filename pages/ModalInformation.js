@@ -1,16 +1,10 @@
-//import Head from 'next/head'
-// import Image from 'next/image'
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Link from "next/link";
-import styles from "../styles/Information.module.scss";
+import styles from '../styles/Information.module.scss';
 
 export default function ModalInformation({
   activeInformation,
   setActiveInformation,
-  photo
+  photo,
 }) {
-
   return (
     <div
       className={activeInformation ? styles.modal_active : styles.modal}
