@@ -23,13 +23,10 @@
       grid-gap: 20px 0px;
 
       .divImg {
-        //background-color: black;
         width: 12vw;
         height: 20vh;
         position: relative;
-        //margin: 2vh 0 0 1vw;
         background: url(/logo/eye.svg) #fff no-repeat center;
-
         border-radius: 3%;
 
         .svgeye {
@@ -37,28 +34,18 @@
           top: 50%;
           width: 60px;
           left: 50%;
-          //opacity: 0;
         }
 
         .img {
           width: 12vw;
           height: 20vh;
-          //margin: 2vh 0 0 1vw;
           border-radius: 3%;
           transition: 0.5s;
-
-          // &:hover {
-          //   cursor: pointer;
-          //   opacity: 0.2;
-          // }
         }
         &:hover {
-        background-color: rgba(0, 0, 0, 0.815);
-
+          background-color: rgba(0, 0, 0, 0.815);
           cursor: pointer;
-          // .svgeye {
-          //   opacity: 1;
-          // }
+
           .img {
             opacity: 0.2;
           }

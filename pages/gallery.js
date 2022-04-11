@@ -1,9 +1,9 @@
-
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
-import styles from '../styles/Gallery.module.scss';
 import ModalInformation from './ModalInformation';
+import { getPhotos } from '../services';
+import styles from '../styles/Gallery.module.scss';
 
 export default function Gallery() {
   const store = useSelector((store) => store);
@@ -13,20 +13,16 @@ export default function Gallery() {
   const [photo, setPhoto] = useState('');
 
   useEffect(() => {
-    setImages(
-      JSON.parse(localStorage.getItem('photo')).slice(9 * (page - 1), 9) || []
-    );
+    setImages(getPhotos().slice(9 * (page - 1), 9));
   }, []);
 
   useEffect(() => {
     const start = 9 * (page - 1);
-    setImages(
-      JSON.parse(localStorage.getItem('photo')).slice(start, start + 9) || []
-    );
+    setImages(getPhotos().slice(start, start + 9));
   }, [page]);
 
   const incPage = () => {
-    const local = JSON.parse(localStorage.getItem('photo')) || [];
+    const local = getPhotos();
     if (local.length > page * 9) setPage(page + 1);
   };
 
@@ -35,17 +31,19 @@ export default function Gallery() {
       <div className={styles.container}>
         <div className={styles.innerContainer}>
           {images.map((item) => (
-            <div className={styles.divImg}>
-            <img
-              onClick={() => {
-                setActiveInformation(true), setPhoto(item);
-              }}
-              src={item.image}
-              className={styles.img}
-            ></img>
+            <div
+              className={styles.divImg}
+              key={Math.floor(Math.random() * 10000000000)}
+            >
+              <img
+                onClick={() => {
+                  setActiveInformation(true), setPhoto(item);
+                }}
+                src={item.image}
+                className={styles.img}
+              ></img>
             </div>
           ))}
-          
         </div>
         <div className={styles.links}>
           <div className={styles.containerSvg}>

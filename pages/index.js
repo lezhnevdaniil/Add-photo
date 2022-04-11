@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Snackbar from '@mui/material/Snackbar';
 import styles from '../styles/Home.module.scss';
+import { draLeaveHandler, draStartHandler, getPhotos, onDropHandler, uploadImage } from '../services';
 
 export default function Home() {
   const dispatch = useDispatch();
-  //const store = useSelector((store) => store);
   const [drag, setDrag] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -22,43 +22,12 @@ export default function Home() {
     image: '',
   });
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const uploadImage = async (e) => {
-    const file = e.dataTransfer.files[0];
-    const base64 = await converterBase64(file);
-    setTestImages(base64);
-    if (title && description) {
-      setNewImage({
-        title,
-        description,
-        image: base64,
-      });
-    }
-  };
-
-  const converterBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
   const router = useRouter();
 
   useEffect(() => {
     if (newImage.title && newImage.description) {
       dispatch(addImage(newImage));
-      const tmp = JSON.parse(localStorage.getItem('photo')) || [];
+      const tmp = getPhotos();
       tmp.push(newImage);
       localStorage.setItem('photo', JSON.stringify(tmp));
       setNewImage({
@@ -70,32 +39,12 @@ export default function Home() {
     }
   }, [newImage]);
 
-  const draStartHandler = (e) => {
-    e.preventDefault();
-    setDrag(true);
-  };
-
-  const draLeaveHandler = (e) => {
-    e.preventDefault();
-    setDrag(false);
-  };
-
-  const onDropHandler = (e) => {
-    if (!newImage.title && !newImage.description) {
-      setSnackbar('Complete  all fields');
-      setOpen(true);
-    }
-    e.preventDefault();
-    uploadImage(e);
-    setDrag(false);
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.form}>
         <Snackbar
           open={open}
-          onClose={handleClose}
+          onClose={() => setOpen(false)}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'center',
@@ -128,19 +77,19 @@ export default function Home() {
             <div
               name='photo'
               className={styles.dropArea}
-              onDragStart={(e) => draStartHandler(e)}
-              onDragLeave={(e) => draLeaveHandler(e)}
-              onDragOver={(e) => draStartHandler(e)}
-              onDrop={(e) => onDropHandler(e)}
+              onDragStart={(e) => draStartHandler({e, setDrag})}
+              onDragLeave={(e) => draLeaveHandler({e, setDrag})}
+              onDragOver={(e) => draStartHandler({e, setDrag})}
+              onDrop={(e) => onDropHandler({e, newImage, setSnackbar, setOpen, uploadImage, setDrag, title, description, setTestImages, setNewImage})}
             >
               Release the photo
             </div>
           ) : (
             <div
               className={styles.dragArea}
-              onDragStart={(e) => draStartHandler(e)}
-              onDragLeave={(e) => draLeaveHandler(e)}
-              onDragOver={(e) => draStartHandler(e)}
+              onDragStart={(e) => draStartHandler({e, setDrag})}
+              onDragLeave={(e) => draLeaveHandler({e, setDrag})}
+              onDragOver={(e) => draStartHandler({e, setDrag})}
             >
               Drag photos here
             </div>
