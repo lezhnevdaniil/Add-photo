@@ -1,7 +1,7 @@
 export const getPhotos = () => {
   let photos = [];
-  if (typeof window !== 'undefined') {
-    photos = JSON.parse(localStorage.getItem('photo')) || [];
+  if (typeof window !== "undefined") {
+    photos = JSON.parse(localStorage.getItem("photo")) || [];
   }
   return photos;
 };
@@ -63,7 +63,7 @@ export const onDropHandler = ({
   setNewImage,
 }) => {
   if (!newImage[title] && !newImage[description]) {
-    setSnackbar('Complete  all fields');
+    setSnackbar("Complete  all fields");
     setOpen(true);
   }
   e.preventDefault();

@@ -1,5 +1,5 @@
 import { createStore } from 'redux';
 import { reducer } from './reducer';
-import { initialState } from './initialState';
+import { initialStatePhotos } from './initialStatePhotos';
 
-export const store = createStore(reducer, initialState);
+export const store = createStore(reducer, initialStatePhotos);

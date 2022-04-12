@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
+import Snackbar from '@mui/material/Snackbar';
 import { addImage } from './store/actionsCreator/actions';
 import { deleteImages } from './store/actionsCreator/actions';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Snackbar from '@mui/material/Snackbar';
+import { draLeaveHandler, draStartHandler, getPhotos, onDropHandler, uploadImage } from '../services/indexService';
 import styles from '../styles/Home.module.scss';
-import { draLeaveHandler, draStartHandler, getPhotos, onDropHandler, uploadImage } from '../services';
 
 export default function Home() {
   const dispatch = useDispatch();

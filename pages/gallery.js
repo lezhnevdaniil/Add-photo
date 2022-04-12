@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import ModalInformation from './ModalInformation';
-import { getPhotos } from '../services';
+import { getPhotos } from '../services/galleryService';
 import styles from '../styles/Gallery.module.scss';
 
 export default function Gallery() {
