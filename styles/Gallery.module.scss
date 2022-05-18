@@ -1,0 +1,75 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 40vw;
+    height: 80vh;
+    box-shadow: 0px 0px 9px 0px;
+    margin-top: 20px;
+
+    .innerContainer {
+      margin-top: 7px;
+      display: grid;
+      padding: 10px 10px 0 10px;
+      grid-template-columns: 1fr 1fr 1fr;
+      justify-items: center;
+      grid-gap: 20px 0px;
+
+      .divImg {
+        width: 12vw;
+        height: 20vh;
+        position: relative;
+        background: url(/logo/eye.svg) #fff no-repeat center;
+        border-radius: 3%;
+
+        .svgeye {
+          position: absolute;
+          top: 50%;
+          width: 60px;
+          left: 50%;
+        }
+
+        .img {
+          width: 12vw;
+          height: 20vh;
+          border-radius: 3%;
+          transition: 0.5s;
+        }
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.815);
+          cursor: pointer;
+
+          .img {
+            opacity: 0.2;
+          }
+        }
+      }
+    }
+  }
+
+  .links {
+    display: flex;
+    height: 13vh;
+    align-items: center;
+
+    .containerSvg {
+      display: flex;
+      width: 11.5vw;
+      height: 6vh;
+      border: 1px solid rgb(0 0 0 / 6%);
+      justify-content: space-around;
+      margin: 12px;
+
+      .svg {
+        width: 3vw;
+      }
+    }
+  }
+}
